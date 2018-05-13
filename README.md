@@ -7,10 +7,12 @@ WAV from/to SVG converter (back and forth)
 ![License](https://img.shields.io/badge/license-GPL-blue.svg?style=flat-square) 
 ![Language](https://img.shields.io/badge/language-C++-yellow.svg?style=flat-square) 
 
-## Third party libraries
+Third party libraries
+-------
 
   * Qt (qt.io)
-  * AudioFile is written and maintained by Adam Stark [http://www.adamstark.co.uk](http://www.adamstark.co.uk)
+  * AudioFile is written and maintained by Adam Stark [http://www.adamstark.co.uk](http://www.adamstark.co.uk) Copyright (c) 2017 Adam Stark
+  * Some functions borrowed from NanoSVG https://github.com/memononen/nanosvg (zlib license) Nano SVG Copyright (c) 2013-14 Mikko Mononen memon@inside.org
 
 Versions
 -------
@@ -23,7 +25,6 @@ License
 -------
 
 Copyright (c) 2018 Anthony Rabine
-Copyright (c) 2017 Adam Stark
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

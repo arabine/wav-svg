@@ -137,7 +137,7 @@ bool AudioFile<T>::setAudioBuffer (const AudioBuffer& newBuffer)
         return false;
     }
     
-    int numSamples = (int)newBuffer[0].size();
+    unsigned int numSamples = newBuffer[0].size();
     
     // set the number of channels
     samples.resize (newBuffer.size());
@@ -148,7 +148,7 @@ bool AudioFile<T>::setAudioBuffer (const AudioBuffer& newBuffer)
         
         samples[k].resize (numSamples);
         
-        for (int i = 0; i < numSamples; i++)
+        for (unsigned int i = 0; i < numSamples; i++)
         {
             samples[k][i] = newBuffer[k][i];
         }
@@ -844,7 +844,7 @@ int16_t AudioFile<T>::twoBytesToInt (std::vector<uint8_t>& source, int startInde
 template <class T>
 int AudioFile<T>::getIndexOfString (std::vector<uint8_t>& source, std::string stringToSearchFor)
 {
-    int index = -1;
+    unsigned int index = -1;
     int stringLength = (int)stringToSearchFor.length();
     
     for (int i = 0; i < source.size() - stringLength;i++)

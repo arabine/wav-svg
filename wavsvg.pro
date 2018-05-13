@@ -16,6 +16,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 HEADERS += AudioFile.h
 
+OTHER_FILES += README.md
+
 SOURCES += \
         main.cpp \
         AudioFile.cpp \
