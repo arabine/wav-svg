@@ -1,5 +1,3 @@
-QT -= gui
-
 CONFIG += c++11 console
 CONFIG -= app_bundle
 
@@ -21,3 +19,4 @@ OTHER_FILES += README.md
 SOURCES += \
         main.cpp \
         AudioFile.cpp \
+        pugixml.cpp

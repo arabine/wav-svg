@@ -1,13 +1,12 @@
-#include <QCoreApplication>
-#include <QXmlStreamReader>
-#include <QFile>
-#include <QFileInfo>
-#include <QCommandLineParser>
-
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include <string>
+#include <cstring>
+#include <cmath>
+
 #include "AudioFile.h"
+#include "pugixml.hpp"
 
 static int nsvg__isspace(char c)
 {
@@ -143,7 +142,6 @@ static const char* nsvg__getNextPathItem(const char* s, char* it)
 
 static void nsvg__parsePoly(const char* s, std::vector<double> &samples)
 {
-    int i;
     double args[2];
     int nargs = 0;
     int npts = 0;
@@ -167,6 +165,19 @@ static void nsvg__parsePoly(const char* s, std::vector<double> &samples)
             }
         }
     }
+}
+
+std::string GetSuffix(const std::string &path)
+{
+    return path.substr(path.find_last_of(".") + 1);
+}
+
+std::string GetFullBaseName(const std::string &path)
+{
+    std::string suffix = GetSuffix(path);
+    std::string basename = path;
+    basename.erase(path.size()-(suffix.size()+1));
+    return basename;
 }
 
 void WavToSvg(const std::string &inputFileName, const std::string &outputFileName)
@@ -219,16 +230,24 @@ void WavToSvg(const std::string &inputFileName, const std::string &outputFileNam
 
 void SvgToWav(const std::string &inputFileName, const std::string &outputFileName)
 {
-    std::vector<double> channel;
 
-    QXmlStreamReader xml;
-    QFile file(inputFileName.c_str());
-    if(file.open(QIODevice::ReadOnly))
-    {
-        QXmlStreamReader xmlReader;
-        xmlReader.setDevice(&file);
+    AudioFile<double>::AudioBuffer buffer;
 
+    pugi::xml_document doc;
+    pugi::xml_parse_result result = doc.load_file(inputFileName.c_str());
+
+     if (result.status == pugi::status_ok)
+     {
         //Reading from the file
+         for (pugi::xml_node tool: doc.child("svg").children("polyline"))
+         {
+             std::vector<double> channel;
+             std::cout << "Found Polyline! " << std::endl;
+             const char *allPoints = tool.attribute("points").as_string();
+             nsvg__parsePoly(allPoints, channel);
+             buffer.push_back(channel);
+         }
+/*
         do
         {
             xmlReader.readNext();
@@ -261,16 +280,20 @@ void SvgToWav(const std::string &inputFileName, const std::string &outputFileNam
         {
             std::cout << "XML error: " << xmlReader.errorString().data() << std::endl;
         }
+        */
     }
 
-    AudioFile<double> audioFileOut;
+     if (buffer.size() > 0)
+     {
+        AudioFile<double> audioFileOut;
 
-    AudioFile<double>::AudioBuffer buffer;
-    buffer.push_back(channel); // left
-    buffer.push_back(channel); // right
-
-    audioFileOut.setAudioBuffer (buffer);
-    audioFileOut.save(outputFileName, AudioFileFormat::Wave);
+        audioFileOut.setAudioBuffer (buffer);
+        audioFileOut.save(outputFileName, AudioFileFormat::Wave);
+    }
+     else
+     {
+         std::cout << "No any samples found!" << std::endl;
+     }
 }
 
 void PrintHelp(const char *exeName)
@@ -284,18 +307,18 @@ int main(int argc, char *argv[])
     int ret = 0;
     if (argc > 1)
     {
-        QFileInfo inputFile(argv[1]);
+        std::cout << GetFullBaseName(argv[1]) << std::endl;
 
-        QString baseName = inputFile.baseName();
-        QString suffix = inputFile.completeSuffix();
+        std::string baseName = GetFullBaseName(argv[1]);
+        std::string suffix = GetSuffix(argv[1]);
 
         if (suffix == "svg")
         {
-            SvgToWav(inputFile.absoluteFilePath().toStdString(), baseName.toStdString() + "_output.wav");
+            SvgToWav(argv[1], baseName + "_output.wav");
         }
         else if(suffix == "wav")
         {
-            WavToSvg(inputFile.absoluteFilePath().toStdString(), baseName.toStdString() + "_output.svg");
+            WavToSvg(argv[1], baseName + "_output.svg");
         }
         else
         {
