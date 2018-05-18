@@ -19,4 +19,5 @@ OTHER_FILES += README.md
 SOURCES += \
         main.cpp \
         AudioFile.cpp \
-        pugixml.cpp
+        pugixml.cpp \
+        Converter.cpp

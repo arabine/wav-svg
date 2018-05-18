@@ -8,7 +8,7 @@ CFLAGS = -std=gnu++11 -Wall -W -Wextra -fexceptions -mthreads
 default: $(TARGET)
 all: default
 
-OBJECTS = $(patsubst %.cpp, %.o, $(wildcard *.cpp))
+OBJECTS = Converter.o main.o AudioFile.o plugixml.o
 HEADERS = $(wildcard *.h)
 
 %.o: %.cpp $(HEADERS)
