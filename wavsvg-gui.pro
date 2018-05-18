@@ -25,6 +25,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main-gui.cpp mainwindow.cpp Converter.cpp AudioFile.cpp pugixml.cpp
 
-HEADERS += mainwindow.h Converter.h AudioFile.h pugiconfig.hpp pugixml.h
+HEADERS += mainwindow.h Converter.h AudioFile.h pugiconfig.hpp pugixml.hpp
 
 FORMS += mainwindow.ui
