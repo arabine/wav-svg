@@ -7,11 +7,15 @@
 
 #include "Converter.h"
 
+#define DRAWSOUND_VERSION "1.0.0"
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    setWindowTitle("DrawSound " DRAWSOUND_VERSION);
 
     connect(ui->pushButtonImportWav, &QPushButton::clicked, this, &MainWindow::slotImportWav);
     connect(ui->pushButtonImportSvg, &QPushButton::clicked, this, &MainWindow::slotImportSvg);
@@ -56,6 +60,23 @@ void MainWindow::slotExportWav()
     else if(ui->radioButton48K->isChecked())
     {
         sampleRate = 48000;
+    }
+    else
+    {
+        sampleRate = 96000;
+    }
+
+    if (ui->radioButton16b->isChecked())
+    {
+        bitDepth = 16;
+    }
+    else if(ui->radioButton24b->isChecked())
+    {
+        bitDepth = 24;
+    }
+    else
+    {
+        bitDepth = 32;
     }
 
     SvgToWav(mInputSvgFileName.toStdString(), outputFileName.toStdString(), sampleRate, bitDepth);

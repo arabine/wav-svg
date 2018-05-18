@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 
         if (suffix == "svg")
         {
-            SvgToWav(argv[1], baseName + "_output.wav");
+            SvgToWav(argv[1], baseName + "_output.wav", 44100, 16);
         }
         else if(suffix == "wav")
         {

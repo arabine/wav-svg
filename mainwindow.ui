@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>546</width>
-    <height>226</height>
+    <width>602</width>
+    <height>303</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -98,31 +98,7 @@
        <string>SVG -&gt; WAV</string>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="2">
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
-          <widget class="QLabel" name="labelFileNameSvg">
-           <property name="text">
-            <string>&lt;no file&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item row="0" column="0" rowspan="4">
+       <item row="0" column="0" rowspan="2">
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
           <widget class="QPushButton" name="pushButtonImportSvg">
@@ -153,34 +129,117 @@
          </item>
         </layout>
        </item>
-       <item row="3" column="2">
-        <spacer name="verticalSpacer_4">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>24</height>
-          </size>
-         </property>
-        </spacer>
+       <item row="0" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QLabel" name="labelFileNameSvg">
+           <property name="text">
+            <string>&lt;no file&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
        </item>
-       <item row="1" column="2">
-        <widget class="QRadioButton" name="radioButton44K">
-         <property name="text">
-          <string>44100 Hz</string>
+       <item row="1" column="1">
+        <widget class="QGroupBox" name="groupBox_3">
+         <property name="title">
+          <string>Sample rate</string>
          </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <widget class="QRadioButton" name="radioButton44K">
+            <property name="text">
+             <string>44100 Hz</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioButton48K">
+            <property name="text">
+             <string>48000 Hz</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioButton96K">
+            <property name="text">
+             <string>96000 Hz</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_5">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>6</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
         </widget>
        </item>
-       <item row="2" column="2">
-        <widget class="QRadioButton" name="radioButton48K">
-         <property name="text">
-          <string>48000 Hz</string>
+       <item row="1" column="2">
+        <widget class="QGroupBox" name="groupBox_4">
+         <property name="title">
+          <string>Bit depth</string>
          </property>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <item>
+           <widget class="QRadioButton" name="radioButton16b">
+            <property name="text">
+             <string>16 bit</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioButton24b">
+            <property name="text">
+             <string>24 bit</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioButton32b">
+            <property name="text">
+             <string>32 bit</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_6">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>6</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>
@@ -193,7 +252,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>546</width>
+     <width>602</width>
      <height>25</height>
     </rect>
    </property>

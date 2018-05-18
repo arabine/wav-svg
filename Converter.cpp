@@ -4,7 +4,7 @@
 #include <string>
 #include <cstring>
 #include <cmath>
-
+#include <sstream>
 #include "AudioFile.h"
 #include "pugixml.hpp"
 #include "Converter.h"
@@ -143,7 +143,7 @@ static const char* nsvg__getNextPathItem(const char* s, char* it)
     return s;
 }
 
-static void nsvg__parsePoly(const char* s, std::vector<double> &samples)
+static void parsePoly(const char* s, std::vector<double> &samples, int channelNumber)
 {
     double args[2];
     int nargs = 0;
@@ -156,16 +156,16 @@ static void nsvg__parsePoly(const char* s, std::vector<double> &samples)
         args[nargs++] = nsvg__atof(item);
         if (nargs >= 2)
         {
-            double sample = 250.0 - args[1];
+            double sample = (250.0 + (500.0*channelNumber)) - args[1];
             samples.push_back(sample/250.0);
 
             nargs = 0;
             npts++;
 
-            if (npts < 10)
-            {
-                std::cout << "Point: " << args[0] << ", " << args[1] << std::endl;
-            }
+//            if (npts < 10)
+//            {
+//                std::cout << "Point: " << args[0] << ", " << args[1] << std::endl;
+//            }
         }
     }
 }
@@ -188,33 +188,33 @@ void WavToSvg(const std::string &inputFileName, const std::string &outputFileNam
         std::cout << audioFile.getSampleRate() << std::endl;
         std::cout << audioFile.getNumChannels() << std::endl;
 
-        outfile << R"(<svg width="1000" height="1000" xmlns="http://www.w3.org/2000/svg" version="1.1"><polyline stroke="black" stroke-linecap="round" stroke-linejoin="round" fill="none" points=")";
+        // one channel = 500 height
+
+        outfile << R"(<svg width="1000" height="1000" xmlns="http://www.w3.org/2000/svg" version="1.1">)";
 
         float step = 1000.0/(float)samples;
-        float x = step;
-        for (int i = 0; i < samples; i++)
+
+        for (int k = 0; k < audioFile.getNumChannels(); k++)
         {
-            for (int k = 0; k < audioFile.getNumChannels(); k++)
+            float x = step;
+            std::cout << "Found channel: " << k << std::endl;
+            outfile << R"(<polyline stroke="black" stroke-linecap="round" stroke-linejoin="round" fill="none" points=")";
+            for (int i = 0; i < samples; i++)
             {
-              //  int max = 50000;
-               // if ((i < max) && (k == 0))
-                if (k == 0)
-                {
                     float sampleRaw = audioFile.samples[k][i];
                     float sample = sampleRaw * 250.0;
-                    sample = 250.0 - sample;
+                    sample = (250.0 + (500.0*k)) - sample;
                     outfile << x << ", " << sample << " ";
-
-                    if (i < 10)
-                    {
-                        std::cout << sampleRaw << std::endl;
-                    }
-                }
+//                    if (i < 10)
+//                    {
+//                        std::cout << sampleRaw << std::endl;
+//                    }
+                x += step;
             }
-            x += step;
+            outfile << R"(" />)";
         }
 
-        outfile << R"(" /></svg>)";
+        outfile << R"(</svg>)";
         outfile.close();
     }
 }
@@ -229,13 +229,15 @@ void SvgToWav(const std::string &inputFileName, const std::string &outputFileNam
      if (result.status == pugi::status_ok)
      {
         //Reading from the file
+         int channelNumber = 0;
          for (pugi::xml_node tool: doc.child("svg").children("polyline"))
          {
              std::vector<double> channel;
              std::cout << "Found Polyline! " << std::endl;
              const char *allPoints = tool.attribute("points").as_string();
-             nsvg__parsePoly(allPoints, channel);
+             parsePoly(allPoints, channel, channelNumber);
              buffer.push_back(channel);
+             channelNumber++;
          }
     }
 
