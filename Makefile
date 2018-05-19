@@ -1,14 +1,14 @@
 TARGET = wav-svg
 LIBS = -lm
 CC = g++
-CFLAGS = -std=gnu++11 -Wall -W -Wextra -fexceptions -mthreads
+CFLAGS = -std=gnu++11 -Wall -W -Wextra -fexceptions
 
 .PHONY: default all clean
 
 default: $(TARGET)
 all: default
 
-OBJECTS = Converter.o main.o AudioFile.o plugixml.o
+OBJECTS = Converter.o main.o AudioFile.o pugixml.o
 HEADERS = $(wildcard *.h)
 
 %.o: %.cpp $(HEADERS)

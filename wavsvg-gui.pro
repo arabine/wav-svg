@@ -28,3 +28,5 @@ SOURCES += main-gui.cpp mainwindow.cpp Converter.cpp AudioFile.cpp pugixml.cpp
 HEADERS += mainwindow.h Converter.h AudioFile.h pugiconfig.hpp pugixml.hpp
 
 FORMS += mainwindow.ui
+
+OTHER_FILES += README.md

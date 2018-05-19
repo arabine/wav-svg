@@ -1,3 +1,24 @@
+/** @file mainwindow.cpp
+ *  @author Anthony Rabine
+ *  @copyright Copyright (C) 2018 Anthony Rabine
+ *
+ * This file is part of the 'DrawSound' program (wav-svg)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -66,17 +87,17 @@ void MainWindow::slotExportWav()
         sampleRate = 96000;
     }
 
-    if (ui->radioButton16b->isChecked())
+    if (ui->radioButton8b->isChecked())
+    {
+        bitDepth = 8;
+    }
+    else if(ui->radioButton16b->isChecked())
     {
         bitDepth = 16;
     }
-    else if(ui->radioButton24b->isChecked())
-    {
-        bitDepth = 24;
-    }
     else
     {
-        bitDepth = 32;
+        bitDepth = 24;
     }
 
     SvgToWav(mInputSvgFileName.toStdString(), outputFileName.toStdString(), sampleRate, bitDepth);

@@ -7,6 +7,25 @@ WAV from/to SVG converter (back and forth)
 ![License](https://img.shields.io/badge/license-GPL-blue.svg?style=flat-square) 
 ![Language](https://img.shields.io/badge/language-C++-yellow.svg?style=flat-square) 
 
+
+This project has two programs:
+  * wav-svg command line utility
+  * DrawSound GUI tool
+
+Both of them allow you to convert a WAV file into SVG and an SVG file into a WAV file.
+
+![Screenshot](drawsound.png)
+
+The generated SVG file has one polyline element for each audio channel.
+
+![SVG file in Inkscape](svg_export.png)
+
+
+Acknowledgements
+-------
+
+Thanks to the Pyhon library wav2vec https://github.com/cristoper/wav2vec, my SVG file format is the same.
+
 Third party libraries
 -------
 
@@ -14,12 +33,29 @@ Third party libraries
   * AudioFile is written and maintained by Adam Stark [http://www.adamstark.co.uk](http://www.adamstark.co.uk) Copyright (c) 2017 Adam Stark
   * Some functions borrowed from NanoSVG https://github.com/memononen/nanosvg (zlib license) Nano SVG Copyright (c) 2013-14 Mikko Mononen memon@inside.org
 
+How to build
+-------
+
+Use Qt, each project has its own project (.pro) file. The command line program has its own Makefile project. Just type make to build it.
+
 Versions
 -------
+
+##### 1.0.0 - 19th May 2018
+
+- Version 1.0
+- GUI
+- Command line tool
 
 ##### 0.1.0-alpha - 8th May 2018
 
 - Initial release (generation only, one channel)
+
+TODO
+-------
+
+  * Support 32-bit audio generation
+  * Add options to the command line program
 
 License
 -------
