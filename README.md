@@ -25,7 +25,7 @@ SVG audio format
 -------
 
 The SVG format representing an audio signal must be defined to have the same reference between the two ways of transformation. The SVG must 
-contains a list of <polyline> elements. Each polyline is one audio channel.
+contains a list of polyline elements. Each polyline is one audio channel.
 
 ```xml
 <svg>
