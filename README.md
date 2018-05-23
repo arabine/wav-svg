@@ -21,6 +21,28 @@ The generated SVG file has one polyline element for each audio channel.
 ![SVG file in Inkscape](svg_export.png)
 
 
+SVG audio format
+-------
+
+The SVG format representing an audio signal must be defined to have the same reference between the two ways of transformation. The SVG must 
+contains a list of <polyline> elements. Each polyline is one audio channel.
+
+```xml
+<svg>
+	<polyline points="..." />
+	<polyline points="..." />
+</svg>
+```
+
+A polyline element is a series of points linked togather with a line. Please refer to any SVG tutorial or documentation to learn more on this SVG element.
+
+The SVG coordinate system varies according to the number of channel. The X-axis is always 1000 size. One channel uses a Y-axis of 500.
+
+![SVG file in Inkscape](audio_svg_format.png)
+
+The WAV samples are always between [-1.0 +1.0] (min and max of a sinus) and are normalized between [0 500] during the transformation, for the first channel. 
+All other channels are located under the previous one with a 500 Y-axis offset. There is theorically no limitations on the number of channels.
+
 Acknowledgements
 -------
 
