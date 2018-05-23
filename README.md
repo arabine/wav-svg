@@ -43,6 +43,8 @@ The SVG coordinate system varies according to the number of channel. The X-axis 
 The WAV samples are always between [-1.0 +1.0] (min and max of a sinus) and are normalized between [0 500] during the transformation, for the first channel. 
 All other channels are located under the previous one with a 500 Y-axis offset. There is theorically no limitations on the number of channels.
 
+The X-axis step is generated to keep a constant space between samples. For WAV generation, the X-axis points are not used.
+
 Acknowledgements
 -------
 
